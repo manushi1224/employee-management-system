@@ -12,7 +12,7 @@ const ApproveLeave = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/leaves/applied-leave/"
+          `${process.env.DEPLOYMENT_LINK}api/leaves/applied-leave/`
         );
         setUser(response.data.user);
         setUpdateLeave(false);
@@ -29,7 +29,7 @@ const ApproveLeave = () => {
   const leaveApproval = async (permission, leaveId) => {
     try {
       await axios.patch(
-        `http://localhost:5000/api/leaves/approve-leave/${leaveId}`,
+        `${process.env.DEPLOYMENT_LINK}api/leaves/approve-leave/${leaveId}`,
         { applyForLeave: permission }
       );
       setUpdateLeave(true);
@@ -52,7 +52,7 @@ const ApproveLeave = () => {
                 <div className="d-flex justify-content-center mt-3">
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:5000/${emp.image}`}
+                    src={`${process.env.DEPLOYMENT_LINK}${emp.image}`}
                     className="w-25 rounded-circle"
                   />
                 </div>

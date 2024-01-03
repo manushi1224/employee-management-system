@@ -51,7 +51,7 @@ const LeavePage = () => {
       if (totalDays) {
         try {
           await axios.patch(
-            `http://localhost:5000/api/leaves/applyForleave/${authUser.userId}`,
+            `${process.env.DEPLOYMENT_LINK}api/leaves/applyForleave/${authUser.userId}`,
             {
               leaveDate: {
                 leaveDays: totalDays,

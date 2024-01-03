@@ -53,7 +53,7 @@ const Login = () => {
     if (validForm) {
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/superuser/login/",
+          `${process.env.DEPLOYMENT_LINK}api/superuser/login/`,
           {
             email: formState.email.value,
             password: formState.password.value,

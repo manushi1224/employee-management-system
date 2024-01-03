@@ -15,7 +15,7 @@ const EditEmployee = () => {
     const getUserData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/users/${uid}`
+          `${process.env.DEPLOYMENT_LINK}api/users/${uid}`
         );
         setUser(response.data.user);
         setLoading(false);
@@ -37,7 +37,7 @@ const EditEmployee = () => {
     }
     try {
       await axios.patch(
-        `http://localhost:5000/api/users/editEmployee/${uid}`,
+        `${process.env.DEPLOYMENT_LINK}api/users/editEmployee/${uid}`,
         formData
       );
       setLoading(true)
