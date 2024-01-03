@@ -76,7 +76,7 @@ const SignUp = () => {
       type: "SUBMIT",
       payload: formState,
     });
-    if (formState.isFormValid) {
+    if (validForm) {
       try {
         const formData = {
           email: formState.email.value,

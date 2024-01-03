@@ -11,11 +11,11 @@ function MainNav() {
   const authUser = useContext(userContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!authUser.isLoggedIn) {
-  //     navigate("/");
-  //   }
-  // }, [authUser.logout, authUser.isLoggedIn, navigate]);
+  useEffect(() => {
+    if (!authUser.isLoggedIn) {
+      navigate("/");
+    }
+  }, [authUser, navigate]);
 
   return (
     <MainHeader>
@@ -73,8 +73,7 @@ function MainNav() {
           >
             Log Out
           </Button>
-        ) : // navigate("/")
-        null}
+        ) : null}
       </Navbar>
     </MainHeader>
   );
