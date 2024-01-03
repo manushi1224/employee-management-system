@@ -18,7 +18,7 @@
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.3",
+    "mongoose": "^7.0.0",
     "mongoose-unique-validator": "^4.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.2",
