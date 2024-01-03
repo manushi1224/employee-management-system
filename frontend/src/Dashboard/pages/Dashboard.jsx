@@ -9,7 +9,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getEmployeeDetails = async () => {
       try {
-        const response = await axios.get(`${process.env.DEPLOYMENT_LINK}api/users/`);
+        const response = await axios.get(`/api/users/`);
         setEmployee(response.data.user);
       } catch (error) {
         console.log("error is:", error);

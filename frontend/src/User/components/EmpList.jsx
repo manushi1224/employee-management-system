@@ -35,7 +35,7 @@ const EmpList = (props) => {
             <div className="d-flex justify-content-center mt-3">
               <Card.Img
                 variant="top"
-                src={`${process.env.DEPLOYMENT_LINK}${emp.image}`}
+                src={`/${emp.image}`}
                 className="w-25 rounded-circle"
               />
             </div>

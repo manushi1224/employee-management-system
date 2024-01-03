@@ -93,7 +93,7 @@ const SignUp = () => {
           leaveEndDate: formState.leaveEndDate,
         };
         const response = await axios.post(
-          `${process.env.DEPLOYMENT_LINK}api/superuser/signup`,
+          `/api/superuser/signup`,
           formData
         );
         message.success(response.data.message);
