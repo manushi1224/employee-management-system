@@ -2,13 +2,18 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const dotenv=require("dotenv")
+const dotenv = require("dotenv");
 const path = require("path");
 
-const port= process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: ["https://employee-management-system-81og.vercel.app/", "http://localhost:3000"],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json({ extended: false }));
 
 const superUserRoutes = require("./routes/super-user-routes");

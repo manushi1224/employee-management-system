@@ -49,6 +49,7 @@ const Login = () => {
   };
 
   const submitHandler = async (event) => {
+    console.log(process.env.DEPLOYMENT_LINK)
     event.preventDefault();
     if (validForm) {
       try {

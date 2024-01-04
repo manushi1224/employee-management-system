@@ -40,7 +40,7 @@ function MainNav() {
                   >
                     Leave Page
                   </Link>
-                  <Nav.Link className="text-white">Profile Page</Nav.Link>
+                  <Link to={`/profile`} className="text-white text-decoration-none mt-2 ms-1">Profile Page</Link>
                   <Link
                     to={"/dashboard"}
                     className="text-white text-decoration-none mt-2 ms-1"
