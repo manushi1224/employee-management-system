@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 
 const app = express();
 const corsOptions = {
-  origin: "https://employee-management-system-81og.vercel.app/",
+  origin: ["https://employee-management-system-81og.vercel.app/", "http://localhost:3000"],
   methods: ["GET", "POST", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
