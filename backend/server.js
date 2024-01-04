@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
+dotenv.config()
 
 const port = process.env.PORT || 5000;
 
@@ -35,3 +36,5 @@ app.use((req, res, next) => {
 app.listen(port, () => {
   console.log("Server started on 5000");
 });
+
+module.exports = app;
