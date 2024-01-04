@@ -54,7 +54,7 @@ const Login = () => {
     if (validForm) {
       try {
         const response = await axios.post(
-          `/api/superuser/login/`,
+          `${"https://employee-management-system-sage.vercel.app/"}/api/superuser/login/`,
           {
             email: formState.email.value,
             password: formState.password.value,
