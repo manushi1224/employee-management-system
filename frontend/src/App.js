@@ -55,7 +55,7 @@ function App() {
   const getUserData = async () => {
     if(token){
       try {
-        const response = await axios.get(`/api/users/${userId}`);
+        const response = await axios.get("https://employee-management-system-ujnj.onrender.com/api/users/${userId}");
         setCurrentUser(response.data.user)
       } catch (error) {
         console.log(error)

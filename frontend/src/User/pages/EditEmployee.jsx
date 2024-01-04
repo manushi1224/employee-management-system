@@ -15,7 +15,7 @@ const EditEmployee = () => {
     const getUserData = async () => {
       try {
         const response = await axios.get(
-          `/api/users/${uid}`
+          `https://employee-management-system-ujnj.onrender.com/api/users/${uid}`
         );
         setUser(response.data.user);
         setLoading(false);
@@ -37,7 +37,7 @@ const EditEmployee = () => {
     }
     try {
       await axios.patch(
-        `/api/users/editEmployee/${uid}`,
+        `https://employee-management-system-ujnj.onrender.com/api/users/editEmployee/${uid}`,
         formData
       );
       setLoading(true)

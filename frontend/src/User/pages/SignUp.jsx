@@ -93,7 +93,7 @@ const SignUp = () => {
           leaveEndDate: formState.leaveEndDate,
         };
         const response = await axios.post(
-          `/api/superuser/signup`,
+          "https://employee-management-system-ujnj.onrender.com/api/superuser/signup",
           formData
         );
         message.success(response.data.message);
