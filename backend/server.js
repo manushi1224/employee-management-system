@@ -30,3 +30,5 @@ app.use((req, res, next) => {
 app.listen(port, () => {
   console.log("Server started on 5000");
 });
+
+module.exports = app;
