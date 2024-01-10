@@ -15,7 +15,7 @@ const EditEmployee = () => {
     const getUserData = async () => {
       try {
         const response = await axios.get(
-          `https://employee-management-system-ujnj.onrender.com/api/users/${uid}`
+          `/api/users/${uid}`
         );
         setUser(response.data.user);
         setLoading(false);
@@ -37,7 +37,7 @@ const EditEmployee = () => {
     }
     try {
       await axios.patch(
-        `https://employee-management-system-ujnj.onrender.com/api/users/editEmployee/${uid}`,
+        `/api/users/editEmployee/${uid}`,
         formData
       );
       setLoading(true)
@@ -71,7 +71,7 @@ const EditEmployee = () => {
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          className="border shadow p-5 rounded"
+          className="border shadow p-5 rounded bg-dark"
         >
           <Form.Item
             label="Username"

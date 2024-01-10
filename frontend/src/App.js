@@ -11,6 +11,7 @@ import LeavePage from "./Dashboard/components/LeavePage";
 import AllLeaves from "./Dashboard/pages/AllLeaves";
 import axios from "axios";
 import Profile from "./User/pages/Profile";
+import { ConfigProvider } from "antd";
 
 function App() {
   const getLocalItem = () => {
@@ -49,45 +50,55 @@ function App() {
     });
   }, []);
 
-  
   const { token, userId, isSuperUser } = session;
-  
+
   const getUserData = async () => {
-    if(token){
+    if (token) {
       try {
-        const response = await axios.get("https://employee-management-system-ujnj.onrender.com/api/users/${userId}");
-        setCurrentUser(response.data.user)
+        const response = await axios.get(`/api/users/${userId}`);
+        setCurrentUser(response.data.user);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
-  }
+  };
   return (
-    <userContext.Provider
-      value={{
-        isLoggedIn: !!token,
-        userId: userId,
-        token: token,
-        isSuperUser: isSuperUser,
-        currentUser: currentUser,
-        getUserData: getUserData,
-        login: login,
-        logout: logout,
+    <ConfigProvider
+      theme={{
+        components:{
+          Form:{
+            labelColor: "#fff",
+            labelFontSize: 16,
+          },
+        }
       }}
     >
-      <Router>
-        <MainNav />
-        <Routes>
-          <Route path="/" element={<Login />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/leave-page" element={<AllLeaves />}></Route>
-          <Route path="/ask-for-leave/:uid" element={<LeavePage />}></Route>
-          <Route path="/edit/:uid" element={<EditEmployee />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </Router>
-    </userContext.Provider>
+      <userContext.Provider
+        value={{
+          isLoggedIn: !!token,
+          userId: userId,
+          token: token,
+          isSuperUser: isSuperUser,
+          currentUser: currentUser,
+          getUserData: getUserData,
+          login: login,
+          logout: logout,
+        }}
+      >
+        <Router>
+          <MainNav />
+          <Routes>
+            <Route path="/" element={<Login />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/leave-page" element={<AllLeaves />}></Route>
+            <Route path="/ask-for-leave/:uid" element={<LeavePage />}></Route>
+            <Route path="/edit/:uid" element={<EditEmployee />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </Router>
+      </userContext.Provider>
+    </ConfigProvider>
   );
 }
 

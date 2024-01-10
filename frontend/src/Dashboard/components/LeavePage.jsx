@@ -51,7 +51,7 @@ const LeavePage = () => {
       if (totalDays) {
         try {
           await axios.patch(
-            `https://employee-management-system-ujnj.onrender.com/api/leaves/applyForleave/${authUser.userId}`,
+            `/api/leaves/applyForleave/${authUser.userId}`,
             {
               leaveDate: {
                 leaveDays: totalDays,

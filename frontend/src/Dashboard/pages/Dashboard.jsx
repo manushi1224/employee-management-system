@@ -3,13 +3,16 @@ import EmpList from "../../User/components/EmpList";
 import axios from "axios";
 import EmpTable from "../components/EmpTable";
 
+// const BASE_URL = process.env
+// console.log(BASE_URL)
+
 const Dashboard = () => {
   const [employee, setEmployee] = useState([]);
 
   useEffect(() => {
     const getEmployeeDetails = async () => {
       try {
-        const response = await axios.get(`https://employee-management-system-ujnj.onrender.com/api/users/`);
+        const response = await axios.get(`/api/users/`);
         setEmployee(response.data.user);
       } catch (error) {
         console.log("error is:", error);

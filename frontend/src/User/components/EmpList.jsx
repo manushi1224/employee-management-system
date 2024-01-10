@@ -28,20 +28,22 @@ const EmpList = (props) => {
       {props.employee.map((emp) => {
         return (
           <Card
-            style={{ width: "18rem" }}
+            style={{ width: "18rem", padding: "0rem" }}
             key={emp._id}
-            className="shadow-lg m-3 bg-dark col-6"
+            bg="dark"
+            text="light"
+            className="shadow-lg m-3 col-6"
           >
-            <div className="d-flex justify-content-center mt-3">
-              <Card.Img
-                variant="top"
-                src={`/${emp.image}`}
-                className="w-25 rounded-circle"
-              />
-            </div>
-
+            {/* <Card.Header>Header</Card.Header> */}
             <Card.Body>
-              <Card.Title className="text-center text-white">
+              <div className="d-flex justify-content-center mt-3">
+                <Card.Img
+                  variant="top"
+                  src={`/${emp.image}`}
+                  className="w-25 rounded-circle"
+                />
+              </div>
+              <Card.Title className="text-center">
                 <h3>{emp.name}</h3>
               </Card.Title>
               <ListGroup className="list-group-flush rounded">
@@ -54,6 +56,7 @@ const EmpList = (props) => {
                   {emp.joiningDate.split("T")[0]}
                 </ListGroup.Item>
                 <ListGroup.Item>
+                  <span className="fw-bold">Leave Status: </span>
                   {isOnLeave(emp.leaveDate, Date.now()) ? (
                     <span className="text-danger fw-bold">On Leave</span>
                   ) : (
@@ -61,6 +64,8 @@ const EmpList = (props) => {
                   )}
                 </ListGroup.Item>
               </ListGroup>
+            </Card.Body>
+            <Card.Footer>
               {authUser.isSuperUser ? (
                 <Link to={`/edit/${emp._id}`}>
                   <Button className="bg-white border-white text-dark mt-3">
@@ -83,7 +88,7 @@ const EmpList = (props) => {
                   </>
                 )
               )}
-            </Card.Body>
+            </Card.Footer>
           </Card>
         );
       })}

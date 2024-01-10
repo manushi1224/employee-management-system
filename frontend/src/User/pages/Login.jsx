@@ -54,7 +54,7 @@ const Login = () => {
     if (validForm) {
       try {
         const response = await axios.post(
-          `https://employee-management-system-ujnj.onrender.com/api/superuser/login`,
+          `/api/superuser/login`,
           {
             email: formState.email.value,
             password: formState.password.value,
