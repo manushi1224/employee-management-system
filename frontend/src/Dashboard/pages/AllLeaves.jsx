@@ -37,45 +37,39 @@ const AllLeaves = () => {
     {
       title: "Start Date",
       dataIndex: "startDate",
-      key: "startDate",
       filteredValue: filteredInfo.startDate || null,
-      sorter: (a, b) => a.startDate - b.leaveDate,
-      sortOrder: sortedInfo.columnKey === "startDate" ? sortedInfo.order : null,
-      ellipsis: true,
-      align: "center",
+      // onFilter: (value, record) => record.startDate.includes(value),
+      sorter: (a, b) => new Date(a.startDate) - new Date(b.startDate),
+      key: "startDate",
     },
     {
       title: "End Date",
       dataIndex: "leaveDate",
-      key: "leaveDate",
       filteredValue: filteredInfo.leaveDate || null,
-      sorter: (a, b) => a.startDate - b.leaveDate,
-      sortOrder: sortedInfo.columnKey === "leaveDate" ? sortedInfo.order : null,
-      ellipsis: true,
-      align: "center",
+      // onFilter: (value, record) => record.leaveDate.includes(value),
+      sorter: (a, b) => new Date(a.leaveDate) - new Date(b.leaveDate),
+      key: "leaveDate",
     },
     {
-      title: "Status",
+      title: "Leave Status",
       dataIndex: "leave_status",
       key: "leave_status",
       filters: [
         {
-          text: "Pending",
-          value: "pending",
+          text: "Rejected",
+          value: "rejected",
         },
         {
           text: "Approved",
           value: "approved",
         },
         {
-          text: "Rejected",
-          value: "rejected",
+          text: "Pending",
+          value: "pending",
         },
       ],
-      filteredValue: filteredInfo.leave_status || null,
-      onFilter: (value, record) => record.leave_status.includes(value),
-      ellipsis: true,
-      align: "center",
+      // filteredValue: filteredInfo.leave_status || null,
+      onFilter: (value, record) => record.leave_status.indexOf(value) === 0,
     },
   ];
 
@@ -102,6 +96,7 @@ const AllLeaves = () => {
         <Button onClick={clearAll}>Clear filters and sorters</Button>
         {auth.currentUser && (
           <Table
+            rowKey={(record) => record._id}
             columns={columns}
             dataSource={auth.currentUser.leaveDate}
             onChange={handleChange}
