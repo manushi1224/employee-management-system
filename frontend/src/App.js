@@ -67,7 +67,6 @@ function App() {
       theme={{
         components: {
           Form: {
-            labelColor: "#fff",
             labelFontSize: 16,
           },
           Table: {
