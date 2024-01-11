@@ -65,12 +65,19 @@ function App() {
   return (
     <ConfigProvider
       theme={{
-        components:{
-          Form:{
-            labelColor: "#fff",
+        components: {
+          Form: {
             labelFontSize: 16,
           },
-        }
+          Table: {
+            cellFontSize: 15.5,
+            cellPaddingInline: 12,
+            headerBg: "#dfdfdf",
+            headerColor: "#242424",
+            headerSortActiveBg: "#999999",
+            headerSortHoverBg	: "rgba(181, 181, 181, 0.94)",
+          },
+        },
       }}
     >
       <userContext.Provider

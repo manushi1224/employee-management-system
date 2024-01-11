@@ -2,87 +2,63 @@ import React, { useContext, useEffect, useState } from "react";
 import userContext from "../../context/userContext";
 import ApproveLeave from "../components/ApproveLeave";
 import { Spin } from "antd";
-// import { Table, Card, ListGroup } from "react-bootstrap";
-import { Table, Button } from "antd";
+import { AiFillFilter } from "react-icons/ai";
+import { Table, Button, Dropdown } from "react-bootstrap";
+import { GrClear } from "react-icons/gr";
 
 const AllLeaves = () => {
   const auth = useContext(userContext);
+  const [sortedLeaves, setSortedLeaves] = useState([]);
 
-  // const getLeaveStatus = (status) => {
-  //   switch (status) {
-  //     case "rejected":
-  //       return <span className="text-danger">Rejected</span>;
-  //     case "approved":
-  //       return <span className="text-success">Approved</span>;
-  //     default:
-  //       return <span>Pending</span>;
-  //   }
-  // };
-
-  const [filteredInfo, setFilteredInfo] = useState({});
-  const [sortedInfo, setSortedInfo] = useState({});
-  const handleChange = (filters, sorter) => {
-    setFilteredInfo(filters);
-    setSortedInfo(sorter);
-  };
-  const clearFilters = () => {
-    setFilteredInfo({});
-  };
-  const clearAll = () => {
-    setFilteredInfo({});
-    setSortedInfo({});
+  const getLeaveStatus = (status) => {
+    switch (status) {
+      case "rejected":
+        return <span className="text-danger">Rejected</span>;
+      case "approved":
+        return <span className="text-success">Approved</span>;
+      default:
+        return <span>Pending</span>;
+    }
   };
 
-  const columns = [
-    {
-      title: "Start Date",
-      dataIndex: "startDate",
-      key: "startDate",
-      filteredValue: filteredInfo.startDate || null,
-      sorter: (a, b) => a.startDate - b.leaveDate,
-      sortOrder: sortedInfo.columnKey === "startDate" ? sortedInfo.order : null,
-      ellipsis: true,
-      align: "center",
-    },
-    {
-      title: "End Date",
-      dataIndex: "leaveDate",
-      key: "leaveDate",
-      filteredValue: filteredInfo.leaveDate || null,
-      sorter: (a, b) => a.startDate - b.leaveDate,
-      sortOrder: sortedInfo.columnKey === "leaveDate" ? sortedInfo.order : null,
-      ellipsis: true,
-      align: "center",
-    },
-    {
-      title: "Status",
-      dataIndex: "leave_status",
-      key: "leave_status",
-      filters: [
-        {
-          text: "Pending",
-          value: "pending",
-        },
-        {
-          text: "Approved",
-          value: "approved",
-        },
-        {
-          text: "Rejected",
-          value: "rejected",
-        },
-      ],
-      filteredValue: filteredInfo.leave_status || null,
-      onFilter: (value, record) => record.leave_status.includes(value),
-      ellipsis: true,
-      align: "center",
-    },
-  ];
+  useEffect(() => {
+    if (auth.currentUser) {
+      setSortedLeaves(auth.currentUser.leaveDate);
+    }
+  }, [auth.currentUser]);
 
   useEffect(() => {
     auth.getUserData();
     // eslint-disable-next-line
   }, []);
+
+  const filterLeaveData = (status) => {
+    if (auth.currentUser.leaveDate && sortedLeaves) {
+      switch (status) {
+        case "accepted":
+          var sortedData = auth.currentUser.leaveDate.filter(
+            (data) => data.leave_status === "approved"
+          );
+          setSortedLeaves(sortedData);
+          break;
+        case "rejected":
+          var sortedData = auth.currentUser.leaveDate.filter(
+            (data) => data.leave_status === "rejected"
+          );
+          setSortedLeaves(sortedData);
+          break;
+        case "pending":
+          var sortedData = auth.currentUser.leaveDate.filter(
+            (data) => data.leave_status === "pending"
+          );
+          setSortedLeaves(sortedData);
+          break;
+        default:
+          setSortedLeaves(auth.currentUser.leaveDate);
+          break;
+      }
+    }
+  };
 
   if (auth.isSuperUser) {
     return <ApproveLeave />;
@@ -98,18 +74,34 @@ const AllLeaves = () => {
         <h2>Leave Status and History</h2>
       </div>
       <div className="container">
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button>
-        {auth.currentUser && (
-          <Table
-            columns={columns}
-            dataSource={auth.currentUser.leaveDate}
-            onChange={handleChange}
-            pagination={false}
-          />
-        )}
-        {/* <Table striped>
-          <thead>
+        <div className="d-flex gap-3">
+          <Button
+            variant=""
+            className="border px-4"
+            onClick={() => filterLeaveData("all")}
+          >
+            <GrClear className="mb-1 me-2" />Clear All Filters
+          </Button>
+          <Dropdown id="dropdown-basic-button">
+            <Dropdown.Toggle variant="" id="dropdown-basic" className="border">
+              <AiFillFilter className="mb-1 me-2" />
+              Filter
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => filterLeaveData("accepted")}>
+                Accepted
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterLeaveData("rejected")}>
+                Rejected
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterLeaveData("pending")}>
+                Pending
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <Table striped>
+          <thead className="bg-dark text-white">
             <tr>
               <th>No.</th>
               <th>Start Date</th>
@@ -118,8 +110,8 @@ const AllLeaves = () => {
             </tr>
           </thead>
           <tbody>
-            {auth.currentUser &&
-              auth.currentUser.leaveDate.map((leave, index) => {
+            {sortedLeaves.length !== 0 ? (
+              sortedLeaves.map((leave, index) => {
                 return (
                   <tr key={leave._id}>
                     <td>{index + 1}</td>
@@ -128,9 +120,14 @@ const AllLeaves = () => {
                     <td>{getLeaveStatus(leave.leave_status)}</td>
                   </tr>
                 );
-              })}
+              })
+            ) : (
+              <div className="d-flex justify-content-center">
+                No Leave is Pending
+              </div>
+            )}
           </tbody>
-        </Table> */}
+        </Table>
       </div>
     </div>
   );
