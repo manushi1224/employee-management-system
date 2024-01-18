@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Button, Card, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import userContext from "../../context/userContext";
+import CardUI from "../../UI/CardUI";
 
 const EmpList = (props) => {
   const authUser = useContext(userContext);
@@ -27,44 +28,25 @@ const EmpList = (props) => {
     <div className="d-flex row justify-content-center">
       {props.employee.map((emp) => {
         return (
-          <Card
-            style={{ width: "18rem", padding: "0rem" }}
-            key={emp._id}
-            bg="dark"
-            text="light"
-            className="shadow-lg m-3 col-6"
-          >
-            {/* <Card.Header>Header</Card.Header> */}
-            <Card.Body>
-              <div className="d-flex justify-content-center mt-3">
-                <Card.Img
-                  variant="top"
-                  src={`/${emp.image}`}
-                  className="w-25 rounded-circle"
-                />
-              </div>
-              <Card.Title className="text-center">
-                <h3>{emp.name}</h3>
-              </Card.Title>
-              <ListGroup className="list-group-flush rounded">
-                <ListGroup.Item variant="dark">
-                  <span className="fw-bold">Position: </span>
-                  {emp.position}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Joining Date: </span>
-                  {emp.joiningDate.split("T")[0]}
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <span className="fw-bold">Leave Status: </span>
-                  {isOnLeave(emp.leaveDate, Date.now()) ? (
-                    <span className="text-danger fw-bold">On Leave</span>
-                  ) : (
-                    <span className="text-success fw-bold">Available</span>
-                  )}
-                </ListGroup.Item>
-              </ListGroup>
-            </Card.Body>
+          <CardUI width="18rem" title={emp.name} image={emp.image}>
+            <ListGroup className="list-group-flush rounded">
+              <ListGroup.Item variant="dark">
+                <span className="fw-bold">Position: </span>
+                {emp.position}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <span className="fw-bold">Joining Date: </span>
+                {emp.joiningDate.split("T")[0]}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <span className="fw-bold">Leave Status: </span>
+                {isOnLeave(emp.leaveDate, Date.now()) ? (
+                  <span className="text-danger fw-bold">On Leave</span>
+                ) : (
+                  <span className="text-success fw-bold">Available</span>
+                )}
+              </ListGroup.Item>
+            </ListGroup>
             <Card.Footer>
               {authUser.isSuperUser ? (
                 <Link to={`/edit/${emp._id}`}>
@@ -89,7 +71,7 @@ const EmpList = (props) => {
                 )
               )}
             </Card.Footer>
-          </Card>
+          </CardUI>
         );
       })}
     </div>
