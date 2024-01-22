@@ -24,8 +24,8 @@ const ProfileDetails = (props) => {
         <ListGroupItem value={props.user.email} title="Email" />
         <ListGroupItem value={props.user.phone} title="Phone No." />
         <ListGroupItem value={props.user.address} title="Address" />
-        <ListGroupItem value="XXXX XXXX XXXX" title="Aadhar No" />
-        <ListGroupItem value="XXXXXXXXX" title="Pan No" />
+        <ListGroupItem value={props.user.aadhar} title="Aadhar No" />
+        <ListGroupItem value={props.user.panNo} title="Pan No" />
       </ListGroup>
     </CardUI>
   ) : (

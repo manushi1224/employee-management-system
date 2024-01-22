@@ -12,6 +12,8 @@ import AllLeaves from "./Dashboard/pages/AllLeaves";
 import axios from "axios";
 import Profile from "./User/pages/Profile";
 import { ConfigProvider } from "antd";
+import NewUser from "./User/pages/NewUser";
+import LoginUser from "./User/pages/LoginUser";
 
 function App() {
   const getLocalItem = () => {
@@ -95,9 +97,9 @@ function App() {
         <Router>
           <MainNav />
           <Routes>
-            <Route path="/" element={<Login />}></Route>
+            <Route path="/" element={<LoginUser />}></Route>
             <Route path="/dashboard" element={<Dashboard />}></Route>
-            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/signup" element={<NewUser />}></Route>
             <Route path="/leave-page" element={<AllLeaves />}></Route>
             <Route path="/ask-for-leave/:uid" element={<LeavePage />}></Route>
             <Route path="/edit/:uid" element={<EditEmployee />} />
