@@ -1,7 +1,5 @@
 import "./App.css";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import SignUp from "./User/pages/SignUp";
-import Login from "./User/pages/Login";
 import Dashboard from "./Dashboard/pages/Dashboard";
 import MainNav from "./Navigation/MainNav";
 import EditEmployee from "./User/pages/EditEmployee";
