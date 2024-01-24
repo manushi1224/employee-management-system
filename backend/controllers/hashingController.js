@@ -23,7 +23,7 @@ const decryptData = (password, aadharNo, panNo, secretKey) => {
 
 const decryptePass = (password, secretKey) => {
   const decPass = AES.decrypt(password, secretKey).toString(CryptoJS.enc.Utf8);
-  return JSON.parse(decPass);
+  return {decPass : JSON.parse(decPass)};
 };
 
 module.exports = { encryptData, decryptData, decryptePass };

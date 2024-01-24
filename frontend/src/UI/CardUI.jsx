@@ -14,9 +14,11 @@ const CardUI = (props) => {
             ></Card.Img>
           </div>
         )}
-        <Card.Title className="text-center mt-3">
-          <h3 className="fw-bold">{props.title}</h3>
-        </Card.Title>
+        {props.title && (
+          <Card.Title className="text-center mt-3">
+            <h3 className="fw-bold">{props.title}</h3>
+          </Card.Title>
+        )}
         {props.children}
       </Card.Body>
     </Card>

@@ -1,11 +1,9 @@
-const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const userModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const {
   encryptData,
   decryptData,
-  generateSecretKey,
   decryptePass,
 } = require("./hashingController");
 
@@ -26,9 +24,8 @@ const getUserById = async (req, res, next) => {
     user.password = decPass;
     user.aadhar = decAadhar;
     user.panNo = decPan;
-
-    await user.save();
   } catch (error) {}
+  console.log(user);
   return res
     .status(200)
     .send({ message: "User Found!", success: true, user: user });
@@ -123,8 +120,8 @@ const loginUser = async (req, res, next) => {
       .send({ message: "User not found with this email.", success: false });
   }
 
-  const decryptPass = decryptePass(existingUser.password, secretKey);
-  if (decryptPass !== password) {
+  const { decPass } = decryptePass(existingUser.password, secretKey);
+  if (decPass !== password) {
     return res
       .status(404)
       .send({ message: "Invalid Password", success: false });
@@ -184,7 +181,7 @@ const editEmployee = async (req, res, next) => {
   user.name = name;
   user.email = email;
   user.position = position;
-  user.image = req?.file?.path || "";
+  user.image = req?.file?.path || "uploads\\images\\user-default.jpg";
 
   try {
     await user.save();
