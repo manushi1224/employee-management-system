@@ -47,7 +47,7 @@ const EmpList = (props) => {
                 )}
               </ListGroup.Item>
             </ListGroup>
-            <Card.Footer>
+            {/* <Card.Footer>
               {authUser.isSuperUser ? (
                 <Link to={`/edit/${emp._id}`}>
                   <Button className="bg-white border-white text-dark mt-3">
@@ -70,7 +70,7 @@ const EmpList = (props) => {
                   </>
                 )
               )}
-            </Card.Footer>
+            </Card.Footer> */}
           </CardUI>
         );
       })}

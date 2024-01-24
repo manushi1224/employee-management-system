@@ -11,11 +11,11 @@ function MainNav() {
   const authUser = useContext(userContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!authUser.isLoggedIn) {
-      navigate("/");
-    }
-  }, [authUser, navigate]);
+  // useEffect(() => {
+  //   if (!authUser.isLoggedIn) {
+  //     navigate("/");
+  //   }
+  // }, [authUser, navigate]);
 
   useEffect(() => {
     authUser.getUserData();
