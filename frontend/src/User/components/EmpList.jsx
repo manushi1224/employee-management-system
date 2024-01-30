@@ -28,7 +28,7 @@ const EmpList = (props) => {
     <div className="d-flex row justify-content-center">
       {props.employee.map((emp) => {
         return (
-          <CardUI width="18rem" title={emp.name} image={emp.image}>
+          <CardUI width="18rem" title={emp.name} image={emp.image} key={emp._id}>
             <ListGroup className="list-group-flush rounded">
               <ListGroup.Item variant="dark">
                 <span className="fw-bold">Position: </span>

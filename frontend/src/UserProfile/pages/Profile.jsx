@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import userContext from "../../context/userContext";
-import ProfileCard from "../components/ProfileCard";
-import ProfileDetails from "../components/ProfileDetails";
-import ProfileLinks from "../components/ProfileLinks";
-import EditEmployee from "./EditEmployee";
+import ProfileCard from "../../UserProfile/components/ProfileCard";
+import ProfileDetails from "../../UserProfile/components/ProfileDetails";
+import ProfileLinks from "../../UserProfile/components/ProfileLinks";
+import EditEmployee from "../../User/pages/EditEmployee";
 import "./Profile.css";
 
 import { Button } from "react-bootstrap";
