@@ -3,6 +3,7 @@ import CardUI from "../../UI/CardUI";
 import { ListGroup } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { Spin } from "antd";
+import ChartUI from "../../UI/ChartUI";
 
 const ListGroupItem = (props) => {
   return (
@@ -18,7 +19,10 @@ const ListGroupItem = (props) => {
 const ProfileDetails = (props) => {
   return props.user ? (
     <CardUI width="100%">
-        <h4 className="text-center mb-4"><FaUserCircle className="mb-1 me-3"/>Personal Details</h4>
+      <h4 className="text-center mb-4">
+        <FaUserCircle className="mb-1 me-3" />
+        Personal Details
+      </h4>
       <ListGroup variant="flush" className="container px-5 py-2">
         <ListGroupItem value={props.user.name} title="Full Name" />
         <ListGroupItem value={props.user.email} title="Email" />
@@ -27,6 +31,7 @@ const ProfileDetails = (props) => {
         <ListGroupItem value={props.user.aadhar} title="Aadhar No" />
         <ListGroupItem value={props.user.panNo} title="Pan No" />
       </ListGroup>
+      {props.user.leaveDate && <ChartUI leaves={props.user.leaveDate} />}
     </CardUI>
   ) : (
     <Spin />

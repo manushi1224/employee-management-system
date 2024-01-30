@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Spin, Upload, message } from "antd";
 import { MdOutlineSaveAlt } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 
-import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import defaultImage from "../../images/user-default.jpg";
 
 const EditEmployee = (data) => {
-  const { uid } = useParams();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
   const navigate = useNavigate();
@@ -25,37 +24,33 @@ const EditEmployee = (data) => {
   };
 
   useEffect(() => {
-    // const getUserData = async () => {
-    //   try {
-    //     const response = await axios.get(`/api/users/${uid}`);
-    //     setUser(response.data.user);
-    //     setLoading(false);
-    //   } catch (error) {
-    //     message.error("Could not fetch data");
-    //   }
-    // };
-    // getUserData();
     setUser(data.user);
     setLoading(false);
   }, [data]);
 
   const onFinish = async (values) => {
-    const { username, email, position, upload } = values;
+    const { username, email, position, upload, phone, address, aadhar, panNo } =
+      values;
 
     const formData = new FormData();
     formData.append("name", username);
     formData.append("email", email);
     formData.append("position", position);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("aadhar", aadhar);
+    formData.append("panNo", panNo);
 
     if (upload) {
       formData.append("image", upload[0].originFileObj);
     }
 
     try {
-      await axios.patch(`/api/users/editEmployee/${uid}`, formData);
+      await axios.patch(`/api/users/editEmployee/${user._id}`, formData);
       setLoading(true);
       message.success("Profile Updated successfully");
-      data.changeMode()
+      data.changeMode();
+      navigate("/profile")
     } catch (error) {
       message.error("Could not update data..Please try again!");
     }
@@ -85,6 +80,9 @@ const EditEmployee = (data) => {
             email: user.email,
             position: user.position,
             phone: user.phone,
+            address: user.address,
+            aadhar: user.aadhar,
+            panNo: user.panNo,
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
@@ -146,15 +144,51 @@ const EditEmployee = (data) => {
           </Form.Item>
 
           <Form.Item
-            name="upload"
-            label="Upload"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
+            label="Address"
+            name="address"
             rules={[
               {
                 required: true,
+                message: "Please input your Address!",
               },
             ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Aadhar No"
+            name="aadhar"
+            rules={[
+              {
+                required: true,
+                pattern: "^[2-9][0-9]{3} [0-9]{4} [0-9]{4}$",
+                message: "Please input valid Aadhar No!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="PAN No"
+            name="panNo"
+            rules={[
+              {
+                required: true,
+                pattern: "[A-Z]{5}[0-9]{4}[A-Z]{1}",
+                message: "Please input valid Aadhar No!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="upload"
+            label="Change Progile Photo"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
           >
             <Upload
               {...props}
@@ -173,7 +207,7 @@ const EditEmployee = (data) => {
 
           <Form.Item
             wrapperCol={{
-              offset: 8,
+              offset: 5,
               span: 16,
             }}
           >

@@ -11,11 +11,11 @@ function MainNav() {
   const authUser = useContext(userContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!authUser.isLoggedIn) {
-  //     navigate("/");
-  //   }
-  // }, [authUser, navigate]);
+  useEffect(() => {
+    if (!authUser.isLoggedIn) {
+      navigate("/");
+    }
+  }, [authUser, navigate]);
 
   useEffect(() => {
     authUser.getUserData();
@@ -66,6 +66,12 @@ function MainNav() {
                 className="text-white"
                 id="collapsible-nav-dropdown"
               >
+                {authUser.isSuperUser && (
+                  <NavDropdown.Item href="/signup">
+                    Add New User
+                  </NavDropdown.Item>
+                )}
+
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={authUser.logout}>
                   Log Out
