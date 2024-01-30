@@ -8,7 +8,7 @@ import userContext from "./context/userContext";
 import LeavePage from "./Dashboard/components/LeavePage";
 import AllLeaves from "./Dashboard/pages/AllLeaves";
 import axios from "axios";
-import Profile from "./User/pages/Profile";
+import Profile from "./UserProfile/pages/Profile";
 import { ConfigProvider } from "antd";
 import NewUser from "./User/pages/NewUser";
 import LoginUser from "./User/pages/LoginUser";

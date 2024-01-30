@@ -1,11 +1,26 @@
-import Container from "react-bootstrap/Container";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import userContext from "../context/userContext";
+
+import { NavDropdown } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+
 import MainHeader from "./MainHeader";
-import { Link, useNavigate } from "react-router-dom";
-import { NavDropdown } from "react-bootstrap";
-import userContext from "../context/userContext";
-import { useContext, useEffect } from "react";
+import getIcon from "../utils/getIcon";
+
+const NavLinks = (item) => {
+  return (
+    <Link
+      className="text-white text-decoration-none mt-1 ms-2 me-2"
+      to={item.link}
+    >
+      {getIcon(item.navIcon)}
+      {item.navText}
+    </Link>
+  );
+};
 
 function MainNav() {
   const authUser = useContext(userContext);
@@ -39,24 +54,21 @@ function MainNav() {
             <Nav className="me-auto">
               {authUser.isLoggedIn && (
                 <>
-                  <Link
-                    className="text-white text-decoration-none mt-1 ms-2"
-                    to={"/leave-page"}
-                  >
-                    Leave Page
-                  </Link>
-                  <Link
-                    to={`/profile`}
-                    className="text-white text-decoration-none mt-1 ms-2"
-                  >
-                    Profile Page
-                  </Link>
-                  <Link
-                    to={"/dashboard"}
-                    className="text-white text-decoration-none mt-1 ms-2"
-                  >
-                    DashBoard
-                  </Link>
+                  <NavLinks
+                    link="/leave-page"
+                    navIcon="leave"
+                    navText="Leave Page"
+                  />
+                  <NavLinks
+                    link="/profile"
+                    navIcon="profile"
+                    navText="Profile"
+                  />
+                  <NavLinks
+                    link="/dashboard"
+                    navIcon="dashboard"
+                    navText="Dashboard"
+                  />
                 </>
               )}
             </Nav>
@@ -67,42 +79,19 @@ function MainNav() {
                 id="collapsible-nav-dropdown"
               >
                 {authUser.isSuperUser && (
-                  <NavDropdown.Item href="/signup">
-                    Add New User
-                  </NavDropdown.Item>
+                  <>
+                    <NavDropdown.Item href="/signup">
+                      Add New User
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                  </>
                 )}
 
-                <NavDropdown.Divider />
                 <NavDropdown.Item onClick={authUser.logout}>
                   Log Out
                 </NavDropdown.Item>
               </NavDropdown>
             )}
-            {/* (
-                <div className="w-100 d-flex justify-content-end">
-                   <Link
-                    to={"/signup"}
-                    className="text-white text-decoration-none"
-                  >
-                    <Button className="bg-dark border-white me-3">
-                      Add New User
-                    </Button>
-                  </Link>
-                  <Button
-                    className="bg-dark border-white me-3"
-                    onClick={authUser.logout}
-                  >
-                    Log Out
-                  </Button>
-                </div>
-              ) : authUser.isLoggedIn && !authUser.isSuperUser ? (
-                <Button
-                  className="bg-dark border-white me-3"
-                  onClick={authUser.logout}
-                >
-                  Log Out
-                </Button>
-              ) : null */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
