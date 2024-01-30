@@ -42,16 +42,16 @@ const AllLeaves = () => {
           setSortedLeaves(sortedData);
           break;
         case "rejected":
-          var sortedData = auth.currentUser.leaveDate.filter(
+          var sortedRejected = auth.currentUser.leaveDate.filter(
             (data) => data.leave_status === "rejected"
           );
-          setSortedLeaves(sortedData);
+          setSortedLeaves(sortedRejected);
           break;
         case "pending":
-          var sortedData = auth.currentUser.leaveDate.filter(
+          var sortedPending = auth.currentUser.leaveDate.filter(
             (data) => data.leave_status === "pending"
           );
-          setSortedLeaves(sortedData);
+          setSortedLeaves(sortedPending);
           break;
         default:
           setSortedLeaves(auth.currentUser.leaveDate);
@@ -80,7 +80,8 @@ const AllLeaves = () => {
             className="border px-4"
             onClick={() => filterLeaveData("all")}
           >
-            <GrClear className="mb-1 me-2" />Clear All Filters
+            <GrClear className="mb-1 me-2" />
+            Clear All Filters
           </Button>
           <Dropdown id="dropdown-basic-button">
             <Dropdown.Toggle variant="" id="dropdown-basic" className="border">

@@ -4,10 +4,11 @@ import userContext from "../../context/userContext";
 import ProfileCard from "../components/ProfileCard";
 import ProfileDetails from "../components/ProfileDetails";
 import ProfileLinks from "../components/ProfileLinks";
+import EditEmployee from "./EditEmployee";
+import "./Profile.css";
+
 import { Button } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
-import "./Profile.css";
-import EditEmployee from "./EditEmployee";
 
 const Profile = () => {
   const auth = useContext(userContext);
@@ -20,7 +21,7 @@ const Profile = () => {
   useEffect(() => {
     auth.getUserData();
     // eslint-disable-next-line
-  }, []);
+  }, [editMode]);
 
   if (!editMode) {
     return (

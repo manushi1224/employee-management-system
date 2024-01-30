@@ -5,6 +5,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@nivo/core": "^0.84.0",
+    "@nivo/pie": "^0.84.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

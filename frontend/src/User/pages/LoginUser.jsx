@@ -45,10 +45,6 @@ const LoginUser = () => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const formData = {
-        email: data.email,
-        password: data.password,
-      };
       const response = await axios.post("/api/superuser/login", {
         email: data.email,
         password: data.password,

@@ -25,7 +25,6 @@ const getUserById = async (req, res, next) => {
     user.aadhar = decAadhar;
     user.panNo = decPan;
   } catch (error) {}
-  console.log(user);
   return res
     .status(200)
     .send({ message: "User Found!", success: true, user: user });
@@ -164,7 +163,7 @@ const displayUser = async (req, res, next) => {
 };
 
 const editEmployee = async (req, res, next) => {
-  const { email, name, position } = req.body;
+  const { email, name, position, phone, address, aadhar, panNo } = req.body;
 
   const uid = req.params.uid;
   let user;
@@ -181,6 +180,10 @@ const editEmployee = async (req, res, next) => {
   user.name = name;
   user.email = email;
   user.position = position;
+  user.phone = phone;
+  user.address = address;
+  user.aadhar = aadhar;
+  user.panNo = panNo;
   user.image = req?.file?.path || "uploads\\images\\user-default.jpg";
 
   try {

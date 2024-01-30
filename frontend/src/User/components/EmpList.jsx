@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import userContext from "../../context/userContext";
 import CardUI from "../../UI/CardUI";
@@ -46,6 +46,18 @@ const EmpList = (props) => {
                   <span className="text-success fw-bold">Available</span>
                 )}
               </ListGroup.Item>
+              <Button
+                className="mt-3 ms-3"
+                variant="dark"
+                disabled={authUser.userId !== emp._id}
+              >
+                <Link
+                  to={`/ask-for-leave/${emp._id}`}
+                  className="text-decoration-none text-light"
+                >
+                  Ask For Leave
+                </Link>
+              </Button>
             </ListGroup>
             {/* <Card.Footer>
               {authUser.isSuperUser ? (
