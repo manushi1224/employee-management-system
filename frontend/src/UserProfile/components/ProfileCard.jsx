@@ -6,7 +6,12 @@ const ProfileCard = (props) => {
   return (
     <div className="d-flex">
       {props.user ? (
-        <CardUI image={props.user.image} width="100%" title={props.user.name}>
+        <CardUI
+          image={props.user.image}
+          width="100%"
+          title={props.user.name}
+          center={true}
+        >
           <div className="d-flex flex-column align-items-center">
             <h6 className="text-secondary mt-3">{props.user.position}</h6>
             <h6 className="text-secondary">{props.user.address}</h6>

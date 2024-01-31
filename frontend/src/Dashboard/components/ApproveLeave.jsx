@@ -1,7 +1,11 @@
-import { Spin } from "antd";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import axios from "axios";
+
+import { ListGroup } from "react-bootstrap";
+import { Spin } from "antd";
+
+import CardUI from "../../UI/CardUI";
+import getIcon from "../../utils/getIcon";
 
 const ApproveLeave = () => {
   const [user, setUser] = useState();
@@ -11,9 +15,7 @@ const ApproveLeave = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          "/api/leaves/applied-leave/"
-        );
+        const response = await axios.get("/api/leaves/applied-leave/");
         setUser(response.data.user);
         setUpdateLeave(false);
         setLoading(false);
@@ -28,10 +30,9 @@ const ApproveLeave = () => {
 
   const leaveApproval = async (permission, leaveId) => {
     try {
-      await axios.patch(
-        `/api/leaves/approve-leave/${leaveId}`,
-        { applyForLeave: permission }
-      );
+      await axios.patch(`/api/leaves/approve-leave/${leaveId}`, {
+        applyForLeave: permission,
+      });
       setUpdateLeave(true);
       setLoading(true);
     } catch (error) {
@@ -47,64 +48,55 @@ const ApproveLeave = () => {
       ) : (
         user.map((emp) => {
           return (
-            <div className="d-flex row justify-content-center" key={emp._id}>
-              <Card className="shadow-lg m-3 w-50 bg-dark text-white">
-                <div className="d-flex justify-content-center mt-3">
-                  <Card.Img
-                    variant="top"
-                    src={`/${emp.image}`}
-                    className="w-25 rounded-circle"
-                  />
-                </div>
-                <Card.Body>
-                  <Card.Title className="text-center text-white">
-                    {emp.name}
-                  </Card.Title>
-                  <div className="d-flex row">
-                    {emp.leaveDate.map((leave) => {
-                      if (leave.leave_status === "pending") {
-                        return (
-                          <ListGroup
-                            className="list-group-flush rounded w-50 mb-2"
-                            key={leave._id}
-                          >
-                            <ListGroup.Item variant="danger">
-                              <span className="fw-bold">Applied for leave</span>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                              <span className="fw-bold">
-                                From: {leave.startDate}
-                              </span>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                              <span className="fw-bold">
-                                To: {leave.leaveDate}
-                              </span>
-                            </ListGroup.Item>
-                            <div className="d-flex">
-                              <Button
-                                variant="success"
-                                className="mt-3 me-2 w-50"
-                                onClick={() => leaveApproval(true, leave._id)}
-                              >
-                                Approve
-                              </Button>
-                              <Button
-                                variant="danger"
-                                className="mt-3 ms-2 w-50"
-                                onClick={() => leaveApproval(false, leave._id)}
-                              >
-                                Dissapprove
-                              </Button>
+            <div className="d-flex justify-content-center" key={emp._id}>
+              <CardUI
+                image={emp.image}
+                title={emp.name}
+                width="50%"
+                center={false}
+                imgSize={50}
+              >
+                <ListGroup className="list-group-flush rounded mb-2">
+                  <ListGroup.Item variant="danger" className="w-full">
+                    <span className="fw-bold">Applied for leave</span>
+                  </ListGroup.Item>
+                  {emp.leaveDate.map((leave) => {
+                    if (leave.leave_status === "pending") {
+                      return (
+                        <div className="d-flex flex-row">
+                          <ListGroup.Item className="w-100">
+                            <span className="fw-bold">
+                              From: {leave.startDate}
+                            </span>
+                          </ListGroup.Item>
+                          <ListGroup.Item className="w-100">
+                            <span className="fw-bold">
+                              To: {leave.leaveDate}
+                            </span>
+                          </ListGroup.Item>
+                          <ListGroup.Item className="w-75">
+                            <div
+                              className="me-2 text-success fw-bold"
+                              onClick={() => leaveApproval(true, leave._id)}
+                            >
+                              {getIcon("check")}
+                              Approve
                             </div>
-                          </ListGroup>
-                        );
-                      }
-                      return null;
-                    })}
-                  </div>
-                </Card.Body>
-              </Card>
+                            <div
+                              className="text-danger fw-bold"
+                              onClick={() => leaveApproval(false, leave._id)}
+                            >
+                              {getIcon("reject")}
+                              Disapprove
+                            </div>
+                          </ListGroup.Item>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                </ListGroup>
+              </CardUI>
             </div>
           );
         })

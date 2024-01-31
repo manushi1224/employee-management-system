@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import EmpList from "../../User/components/EmpList";
 import axios from "axios";
 import EmpTable from "../components/EmpTable";
-
-// const BASE_URL = process.env
-// console.log(BASE_URL)
+import CardUI from "../../UI/CardUI";
+import userContext from "../../context/userContext";
+import "./Dashboard.css";
+import LeaveUI from "../../UI/LeaveUI";
+import WelcomeUI from "../../UI/WelcomeUI";
 
 const Dashboard = () => {
   const [employee, setEmployee] = useState([]);
+  const authUser = useContext(userContext);
 
   useEffect(() => {
     const getEmployeeDetails = async () => {
@@ -19,12 +22,23 @@ const Dashboard = () => {
       }
     };
     getEmployeeDetails();
+    authUser.getUserData();
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <>
-      <h2 className="text-center mt-4">Current Employees</h2>
-      <div className="container-fluid">
+    <div className="dashboard-section">
+      <div className="welcome-section">
+        <CardUI width="w-100">
+          <WelcomeUI employee={authUser.currentUser}/>
+        </CardUI>
+      </div>
+      <div className="leave-brief">
+        <CardUI>
+          <LeaveUI employee={employee} superuser={authUser.isSuperUser}/>
+        </CardUI>
+      </div>
+      <div className="container-fluid employee-section">
         <div className="row">
           <div className="col-lg-4 col-md-5">
             <EmpTable employee={employee} />
@@ -34,7 +48,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

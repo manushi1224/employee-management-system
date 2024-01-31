@@ -6,7 +6,6 @@ import { MdOutlineSaveAlt } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 
 import axios from "axios";
-import defaultImage from "../../images/user-default.jpg";
 
 const EditEmployee = (data) => {
   const [loading, setLoading] = useState(true);
@@ -14,6 +13,20 @@ const EditEmployee = (data) => {
   const navigate = useNavigate();
 
   const props = {
+    beforeUpload: (file) => {
+      const isJpgOrPng =
+        file.type === "image/jpeg" ||
+        file.type === "image/png" ||
+        file.type === "image/jpg";
+      if (!isJpgOrPng) {
+        return message.error(`uploaded file is not a png/jpg/jpeg file`);
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        return message.error("Image must smaller than 2MB!");
+      }
+      return isJpgOrPng && isLt2M;
+    },
     headers: {
       authorization: "authorization-text",
     },
@@ -50,7 +63,7 @@ const EditEmployee = (data) => {
       setLoading(true);
       message.success("Profile Updated successfully");
       data.changeMode();
-      navigate("/profile")
+      navigate("/profile");
     } catch (error) {
       message.error("Could not update data..Please try again!");
     }
@@ -190,17 +203,7 @@ const EditEmployee = (data) => {
             valuePropName="fileList"
             getValueFromEvent={normFile}
           >
-            <Upload
-              {...props}
-              defaultImage={[
-                {
-                  uid: 1,
-                  name: "user-default.jpg",
-                  url: defaultImage,
-                  status: "done",
-                },
-              ]}
-            >
+            <Upload {...props} accept="image/*">
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
           </Form.Item>

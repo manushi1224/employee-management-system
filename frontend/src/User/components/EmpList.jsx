@@ -28,25 +28,31 @@ const EmpList = (props) => {
     <div className="d-flex row justify-content-center">
       {props.employee.map((emp) => {
         return (
-          <CardUI width="18rem" title={emp.name} image={emp.image} key={emp._id}>
-            <ListGroup className="list-group-flush rounded">
+          <CardUI
+            width="18rem"
+            title={emp.name}
+            image={emp.image}
+            key={emp._id}
+            center={true}
+          >
+            <ListGroup className="list-group-flush rounded mt-4">
               <ListGroup.Item variant="dark">
                 <span className="fw-bold">Position: </span>
                 {emp.position}
               </ListGroup.Item>
-              <ListGroup.Item>
+              {/* <ListGroup.Item>
                 <span className="fw-bold">Joining Date: </span>
                 {emp.joiningDate.split("T")[0]}
-              </ListGroup.Item>
-              <ListGroup.Item>
+              </ListGroup.Item> */}
+              {/* <ListGroup.Item>
                 <span className="fw-bold">Leave Status: </span>
                 {isOnLeave(emp.leaveDate, Date.now()) ? (
                   <span className="text-danger fw-bold">On Leave</span>
                 ) : (
                   <span className="text-success fw-bold">Available</span>
                 )}
-              </ListGroup.Item>
-              <Button
+              </ListGroup.Item> */}
+              {/* <Button
                 className="mt-3 ms-3"
                 variant="dark"
                 disabled={authUser.userId !== emp._id}
@@ -57,32 +63,8 @@ const EmpList = (props) => {
                 >
                   Ask For Leave
                 </Link>
-              </Button>
+              </Button> */}
             </ListGroup>
-            {/* <Card.Footer>
-              {authUser.isSuperUser ? (
-                <Link to={`/edit/${emp._id}`}>
-                  <Button className="bg-white border-white text-dark mt-3">
-                    Edit Info
-                  </Button>
-                </Link>
-              ) : (
-                authUser.userId === emp._id && (
-                  <>
-                    <Link to={`/edit/${emp._id}`}>
-                      <Button className="bg-white border-white text-dark mt-3">
-                        Edit Info
-                      </Button>
-                    </Link>
-                    <Link to={`/ask-for-leave/${emp._id}`}>
-                      <Button className="bg-white border-white text-dark mt-3 ms-3">
-                        Ask For Leave
-                      </Button>
-                    </Link>
-                  </>
-                )
-              )}
-            </Card.Footer> */}
           </CardUI>
         );
       })}
