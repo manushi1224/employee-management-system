@@ -10,11 +10,11 @@
     grid-row: 1;
 }
 
-.profile-details{
+.profile-details {
     grid-column: 2 / 4;
     grid-row: 1/3;
 }
 
-.profile-links{
+.profile-links {
     grid-row: 2 / 4;
 }

@@ -13,7 +13,7 @@ import getIcon from "../utils/getIcon";
 const NavLinks = (item) => {
   return (
     <Link
-      className="text-white text-decoration-none mt-1 ms-2 me-2"
+      className="text-decoration-none text-white mt-1 ms-2 me-2"
       to={item.link}
     >
       {getIcon(item.navIcon)}
