@@ -1,0 +1,45 @@
+.leave-section h3 {
+    color: var(--main-header);
+    font-weight: 700;
+}
+
+.leave-section {
+    height: 12rem;
+    overflow-x: auto;
+}
+
+.leave-section::-webkit-scrollbar {
+    padding-left: 0.1rem;
+    width: 10px;
+    height: 10px;
+}
+
+.leave-section::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom right, #ff4c52 0%, rgb(255, 139, 139) 100%);
+    border-radius: 5px;
+}
+
+.leave-section::-webkit-scrollbar-track {
+    background-color: #ddddddbe;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+}
+
+.leave-req {
+    color: var(--main-header);
+    font-weight: 600;
+}
+
+.leave-text {
+    font-size: 1.15em;
+    font-weight: 600;
+    /* color: var(--secondary-font); */
+}
+
+.sticky-head {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: #fff !important;
+    z-index: 5;
+}

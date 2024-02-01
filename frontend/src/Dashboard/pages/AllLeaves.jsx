@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import userContext from "../../context/userContext";
 import ApproveLeave from "../components/ApproveLeave";
 import { Spin } from "antd";
 import { AiFillFilter } from "react-icons/ai";
-import { Table, Button, Dropdown } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import { GrClear } from "react-icons/gr";
 
 const AllLeaves = () => {
@@ -70,39 +71,52 @@ const AllLeaves = () => {
 
   return (
     <div>
-      <div className="d-flex justify-content-center">
-        <h2>Leave Status and History</h2>
+      <div className="d-flex justify-content-center mt-4">
+        <h2 className="profile-detail-heading">Leave Status and History</h2>
       </div>
       <div className="container">
-        <div className="d-flex gap-3">
-          <Button
-            variant=""
-            className="border px-4"
-            onClick={() => filterLeaveData("all")}
-          >
-            <GrClear className="mb-1 me-2" />
-            Clear All Filters
-          </Button>
-          <Dropdown id="dropdown-basic-button">
-            <Dropdown.Toggle variant="" id="dropdown-basic" className="border">
-              <AiFillFilter className="mb-1 me-2" />
-              Filter
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => filterLeaveData("accepted")}>
-                Accepted
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => filterLeaveData("rejected")}>
-                Rejected
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => filterLeaveData("pending")}>
-                Pending
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <div className="d-flex justify-content-between">
+          <div className="d-flex gap-3">
+            <Button
+              variant=""
+              className="px-4 custom-button"
+              onClick={() => filterLeaveData("all")}
+            >
+              <GrClear className="mb-1 me-2" />
+              Clear All Filters
+            </Button>
+            <Dropdown id="dropdown-basic-button">
+              <Dropdown.Toggle
+                variant=""
+                id="dropdown-basic"
+                className="custom-button"
+              >
+                <AiFillFilter className="mb-1 me-2" />
+                Filter
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => filterLeaveData("accepted")}>
+                  Accepted
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => filterLeaveData("rejected")}>
+                  Rejected
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => filterLeaveData("pending")}>
+                  Pending
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <div>
+            <Link to={`/ask-for-leave/${auth.userId}`}>
+              <Button variant="" className="px-4 custom-button">
+                + Ask For Leave
+              </Button>
+            </Link>
+          </div>
         </div>
-        <Table striped>
-          <thead className="bg-dark text-white">
+        <table className="table mt-4 rounded">
+          <thead className="table-head">
             <tr>
               <th>No.</th>
               <th>Start Date</th>
@@ -128,7 +142,7 @@ const AllLeaves = () => {
               </div>
             )}
           </tbody>
-        </Table>
+        </table>
       </div>
     </div>
   );

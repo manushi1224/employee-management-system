@@ -4,6 +4,7 @@ import { ListGroup } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import { Spin } from "antd";
 import ChartUI from "../../UI/ChartUI";
+import "../pages/Profile.css"
 
 const ListGroupItem = (props) => {
   return (
@@ -19,14 +20,14 @@ const ListGroupItem = (props) => {
 const ProfileDetails = (props) => {
   return props.user ? (
     <CardUI width="100%">
-      <h4 className="text-center mb-4">
+      <h3 className="text-center mb-4 profile-detail-heading">
         <FaUserCircle className="mb-1 me-3" />
         Personal Details
-      </h4>
-      <ListGroup variant="flush" className="container px-5 py-2">
+      </h3>
+      <ListGroup variant="flush" className="container px-lg-5 py-lg-2">
         <ListGroupItem value={props.user.name} title="Full Name" />
-        <ListGroupItem value={props.user.email} title="Email" />
-        <ListGroupItem value={props.user.phone} title="Phone No." />
+        <ListGroupItem value={props.user.position} title="Position" />
+        <ListGroupItem value={props.user.dateOfBirth.split("T")[0]} title="Date Of Birth" />
         <ListGroupItem value={props.user.address} title="Address" />
         <ListGroupItem value={props.user.aadhar} title="Aadhar No" />
         <ListGroupItem value={props.user.panNo} title="Pan No" />

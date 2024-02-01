@@ -4,7 +4,7 @@ import axios from "axios";
 import { DatePicker, Form, message } from "antd";
 import { Button } from "react-bootstrap";
 import userContext from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const { RangePicker } = DatePicker;
 
 const disabledDate = (current) => {
@@ -50,18 +50,15 @@ const LeavePage = () => {
     const leaveapplication = async () => {
       if (totalDays) {
         try {
-          await axios.patch(
-            `/api/leaves/applyForleave/${authUser.userId}`,
-            {
-              leaveDate: {
-                leaveDays: totalDays,
-                leaveStartDate: rangePicker.rangepicker[0],
-                leaveEndDate: rangePicker.rangepicker[1],
-              },
-            }
-          );
+          await axios.patch(`/api/leaves/applyForleave/${authUser.userId}`, {
+            leaveDate: {
+              leaveDays: totalDays,
+              leaveStartDate: rangePicker.rangepicker[0],
+              leaveEndDate: rangePicker.rangepicker[1],
+            },
+          });
           message.success("Applied for leave!");
-          navigate("/dashboard");
+          navigate("/leave-page");
         } catch (error) {
           console.log(error);
         }
@@ -110,6 +107,11 @@ const LeavePage = () => {
           <Button type="primary" htmltype="submit">
             Submit
           </Button>
+          <Link to={"/leave-page"}>
+            <Button variant="secondary" className="ms-3">
+              Cancel
+            </Button>
+          </Link>
         </Form.Item>
       </Form>
     </div>

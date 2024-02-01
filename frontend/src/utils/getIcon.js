@@ -4,6 +4,7 @@ import { RxDashboard } from "react-icons/rx";
 import { IoShareSocialSharp, IoBanOutline } from "react-icons/io5";
 import { FaLinkedin, FaUserPlus, FaMailBulk, FaGithub } from "react-icons/fa";
 import { GiCheckMark } from "react-icons/gi";
+import { HiArrowLongRight } from "react-icons/hi2";
 
 const getIcon = (icon) => {
   switch (icon) {
@@ -27,6 +28,8 @@ const getIcon = (icon) => {
       return <GiCheckMark className="mb-1 me-3" />;
     case "reject":
       return <IoBanOutline className="mb-1 me-3" />;
+    case "right-arrow":
+      return <HiArrowLongRight className="mb-1 me-3" />;
     default:
       return;
   }

@@ -3,9 +3,9 @@ import React from "react";
 const EmpTable = (props) => {
   return (
     <div className="py-3 table-responsive">
-      <table className="table table-striped border">
+      <table className="table">
         <thead>
-          <tr className="table-dark">
+          <tr className="table-head">
             <th scope="col">Name</th>
             <th scope="col">Position</th>
             <th scope="col">Email ID</th>

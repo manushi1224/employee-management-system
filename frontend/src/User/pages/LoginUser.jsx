@@ -43,7 +43,6 @@ const LoginUser = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await axios.post("/api/superuser/login", {
         email: data.email,
@@ -51,22 +50,19 @@ const LoginUser = () => {
       });
       const { _id, isSuperUser } = response.data.user;
       console.log(response.data.message);
-        message.success("Login Successfull!!");
+      message.success("Login Successfull!!");
       authUser.login(response.data.token, _id, isSuperUser);
       navigate("/dashboard");
     } catch (error) {
       console.log(error);
-      message.error(error.message);
+      message.warning("Invalid Email or Password");
     }
   };
   return (
     <div className="mt-4">
-      <h2 className="text-center">Log In User</h2>
+      <h2 className="text-center profile-detail-heading">Log In User</h2>
       <div className="d-flex justify-content-center my-4">
-        <Form
-          onSubmit={handleSubmit(onSubmit)}
-          className="border px-5 py-4 shadow rounded w-50"
-        >
+        <Form onSubmit={handleSubmit(onSubmit)} className="px-5 py-4">
           <FormGroup
             register={register}
             errors={errors.email}
@@ -89,7 +85,11 @@ const LoginUser = () => {
             pattern={/^([a-zA-Z0-9@*#$%^&*!]{6,15})$/}
             message="password should contain atleast 8 characters"
           />
-          <Button variant="dark" type="submit" className="w-100 p-2">
+          <Button
+            variant=""
+            type="submit"
+            className="my-2 custom-button w-100 p-2 fw-bold"
+          >
             Submit
           </Button>
         </Form>
