@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Form, Button } from "react-bootstrap";
 import { message } from "antd";
 import axios from "axios";
+import userContext from "../../context/userContext";
 
 const FormGroup = (value) => {
   return (
@@ -46,6 +47,8 @@ const NewUser = () => {
     formState: { errors },
   } = useForm();
 
+  const authUser = useContext(userContext)
+
   const onSubmit = async (data) => {
     console.log(data);
     try {
@@ -62,10 +65,14 @@ const NewUser = () => {
         dateOfBirth: data.dateOfBirth,
         githubId: data.githubId,
         linkedIn: data.linkedIn,
-        phone: data.tel
+        phone: data.tel,
       };
-      const response = await axios.post("/api/superuser/signup", formData);
-      console.log(response)
+      const response = await axios.post("/api/superuser/signup", formData, {
+        headers: {
+          Authorization: "Bearer " + authUser.token,
+        },
+      });
+      console.log(response);
       message.success(response.data.message);
     } catch (error) {
       console.log(error);
@@ -75,12 +82,9 @@ const NewUser = () => {
 
   return (
     <div className="mt-4">
-      <h2 className="text-center">Add new employee</h2>
+      <h2 className="text-center profile-detail-heading">Add new employee</h2>
       <div className="d-flex justify-content-center my-4">
-        <Form
-          onSubmit={handleSubmit(onSubmit)}
-          className="border px-5 py-4 shadow rounded w-50"
-        >
+        <Form onSubmit={handleSubmit(onSubmit)} className="px-5 py-4">
           <div className="row">
             <div className="col-6">
               <FormGroup
@@ -188,7 +192,7 @@ const NewUser = () => {
                 register={register}
                 errors={errors.linkedIn}
                 type="text"
-                placeholder="enter your linkedid"
+                placeholder="enter your linkedInID"
                 label="LinkedIn ID"
                 id="linkedIn"
                 required={true}
@@ -215,7 +219,7 @@ const NewUser = () => {
               />
             </div>
           </div>
-          <Button variant="dark" type="submit" className="w-100 p-2">
+          <Button variant="" type="submit" className="custom-button w-100 p-2">
             Submit
           </Button>
         </Form>

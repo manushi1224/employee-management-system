@@ -1,23 +1,35 @@
 import React from "react";
 import getLeaveData from "../utils/getLeaveData";
 import userOnLeave from "../utils/isOnLeave";
+import { Avatar } from "antd";
+
+import "./LeaveUI.css";
+import getIcon from "../utils/getIcon";
+import { Link } from "react-router-dom";
 
 const LeaveUI = ({ employee, superuser }) => {
   const leaveUsers = userOnLeave(employee);
 
   if (superuser) {
     return (
-      <div className="container">
-        <div className="d-flex justify-content-between">
-          <h5>Pending Approval</h5>
-          <span>Leave Request &gt;</span>
+      <div className="container leave-section">
+        <div className="d-flex justify-content-between sticky-head">
+          <h3>Pending Approval</h3>
+          <Link to={"/leave-page"} className="text-decoration-none mt-1">
+            <span className="leave-req">Leave Requests &gt;</span>
+          </Link>
         </div>
         {employee.map((emp) => {
           if (getLeaveData(emp.leaveDate) > 0) {
             return (
-              <div key={emp._id} className="d-flex justify-content-between">
-                <span>{emp.name}</span>
-                <span>{getLeaveData(emp.leaveDate)}</span>
+              <div key={emp._id} className="d-flex justify-content-between mt-2">
+                <div className="d-flex gap-4">
+                  <Avatar src={emp.image} size={30} />
+                  <span className="leave-text">{emp.name}</span>
+                </div>
+                <span className="leave-text">
+                  {getLeaveData(emp.leaveDate)}
+                </span>
               </div>
             );
           }
@@ -28,13 +40,15 @@ const LeaveUI = ({ employee, superuser }) => {
   }
 
   return (
-    <div>
+    <div className="leave-section">
       <h3>On Leave</h3>
       {leaveUsers.map((user, index) => {
         return (
-          <div key={index} className="d-flex justify-content-between">
+          <div key={index} className="d-flex justify-content-between mt-3">
+            <Avatar src={user.image} size={25} />
             <div>{user.name}</div>
             <div>{user.startDate}</div>
+            <div>{getIcon("right-arrow")}</div>
             <div>{user.endDate}</div>
           </div>
         );

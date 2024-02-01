@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import EmpList from "../../User/components/EmpList";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import axios from "axios";
+
+import EmpList from "../../User/components/EmpList";
 import EmpTable from "../components/EmpTable";
-import CardUI from "../../UI/CardUI";
 import userContext from "../../context/userContext";
-import "./Dashboard.css";
+import CardUI from "../../UI/CardUI";
 import LeaveUI from "../../UI/LeaveUI";
 import WelcomeUI from "../../UI/WelcomeUI";
+
+import { Spin } from "antd";
 
 const Dashboard = () => {
   const [employee, setEmployee] = useState([]);
@@ -27,28 +31,46 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="dashboard-section">
-      <div className="welcome-section">
-        <CardUI width="w-100">
-          <WelcomeUI employee={authUser.currentUser}/>
-        </CardUI>
-      </div>
-      <div className="leave-brief">
-        <CardUI>
-          <LeaveUI employee={employee} superuser={authUser.isSuperUser}/>
-        </CardUI>
-      </div>
-      <div className="container-fluid employee-section">
-        <div className="row">
-          <div className="col-lg-4 col-md-5">
-            <EmpTable employee={employee} />
+    <>
+      {employee && authUser.currentUser ? (
+        <div className="container-fluid mt-3">
+          <div className="row">
+            <div className="col-lg-8 col-md-12">
+              <CardUI width="w-100">
+                <WelcomeUI employee={authUser.currentUser} />
+              </CardUI>
+            </div>
+            <div className="col-lg-4 col-md-12">
+              <CardUI>
+                <LeaveUI employee={employee} superuser={authUser.isSuperUser} />
+              </CardUI>
+            </div>
           </div>
-          <div className="col-lg-8 col-md-7">
-            <EmpList employee={employee} />
+
+          <div className="container-fluid">
+            <div className="d-flex justify-content-end me-4 mb-3">
+              {authUser.isSuperUser && (
+                <Link to={"/signup"}>
+                  <Button varient="" className="custom-button bg-white mt-3">
+                    + Add a New Employee
+                  </Button>
+                </Link>
+              )}
+            </div>
+            <div className="row">
+              <div className="col-lg-4 col-md-5">
+                <EmpTable employee={employee} />
+              </div>
+              <div className="col-lg-8 col-md-7">
+                <EmpList employee={employee} />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <Spin fullscreen></Spin>
+      )}
+    </>
   );
 };
 

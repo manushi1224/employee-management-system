@@ -44,7 +44,7 @@ function MainNav() {
           <Navbar.Brand>
             <Link
               to={`${authUser.isLoggedIn ? "/dashboard" : "/"}`}
-              className="text-decoration-none text-white"
+              className="text-decoration-none fw-bold text-white"
             >
               Employee Management System
             </Link>
@@ -57,10 +57,10 @@ function MainNav() {
                   <NavLinks
                     link="/leave-page"
                     navIcon="leave"
-                    navText="Leave Page"
+                    navText="Leave Stats"
                   />
                   <NavLinks
-                    link="/profile"
+                    link={`/profile/${authUser.userId}`}
                     navIcon="profile"
                     navText="Profile"
                   />
@@ -78,15 +78,6 @@ function MainNav() {
                 className="text-white"
                 id="collapsible-nav-dropdown"
               >
-                {authUser.isSuperUser && (
-                  <>
-                    <NavDropdown.Item href="/signup">
-                      Add New User
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                  </>
-                )}
-
                 <NavDropdown.Item onClick={authUser.logout}>
                   Log Out
                 </NavDropdown.Item>

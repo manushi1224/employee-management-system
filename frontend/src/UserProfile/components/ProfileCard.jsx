@@ -11,11 +11,9 @@ const ProfileCard = (props) => {
           width="100%"
           title={props.user.name}
           center={true}
+          position={props.user.position}
+          address={props.user.address}
         >
-          <div className="d-flex flex-column align-items-center">
-            <h6 className="text-secondary mt-3">{props.user.position}</h6>
-            <h6 className="text-secondary">{props.user.address}</h6>
-          </div>
         </CardUI>
       ) : (
         <Spin fullscreen />

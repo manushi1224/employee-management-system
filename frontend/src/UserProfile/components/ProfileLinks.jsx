@@ -3,6 +3,7 @@ import { Spin } from "antd";
 import { ListGroup } from "react-bootstrap";
 import CardUI from "../../UI/CardUI";
 import getIcon from "../../utils/getIcon";
+import "../pages/Profile.css"
 
 const ListGroupItem = (props) => {
   return (
@@ -23,10 +24,10 @@ const ProfileLinks = (props) => {
     <CardUI>
       {props.user ? (
         <div className="d-flex flex-column">
-          <h4 className="text-center mb-4">
+          <h3 className="text-center mb-4 profile-detail-heading">
             {getIcon("share")}
             Social Profiles
-          </h4>
+          </h3>
           <ListGroup variant="flush">
             <ListGroupItem name={props.user.email} title="Email" icon="email" />
             <ListGroupItem
@@ -42,6 +43,11 @@ const ProfileLinks = (props) => {
             <ListGroupItem
               name={props.user.joiningDate.split("T")[0]}
               title="Joining Date"
+              icon="joiningDate"
+            />
+            <ListGroupItem
+              name={props.user.phone}
+              title="Phone Number"
               icon="joiningDate"
             />
           </ListGroup>

@@ -63,7 +63,7 @@ const ApproveLeave = () => {
                   {emp.leaveDate.map((leave) => {
                     if (leave.leave_status === "pending") {
                       return (
-                        <div className="d-flex flex-row">
+                        <div className="d-flex flex-row" key={leave._id}>
                           <ListGroup.Item className="w-100">
                             <span className="fw-bold">
                               From: {leave.startDate}

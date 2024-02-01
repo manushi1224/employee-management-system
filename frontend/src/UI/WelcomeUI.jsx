@@ -1,4 +1,6 @@
 import React from "react";
+import img from "../images/dashboard-img.png";
+import "./WelcomeUI.css";
 
 const WelcomeUI = ({ employee }) => {
   const getGreetings = () => {
@@ -8,18 +10,24 @@ const WelcomeUI = ({ employee }) => {
         ? "Good Morning"
         : timeNow >= 12 && timeNow < 18
         ? "Good Afternoon"
-        : "Good evening";
+        : "Good Evening";
     return greeting;
   };
 
   return (
-    <div className="row">
-      <div className="col-7">
-        {employee && <h5>Hi, {employee.name}</h5>}
-        <h3>{getGreetings()} !</h3>
-        <h6 className="text-secondary">Have a Good Day !</h6>
+    <div className="row welcome-section">
+      <div className="col-md-7">
+        {employee && (
+          <h3>
+            Hello, <span className="fw-bold">{employee.name}</span>
+          </h3>
+        )}
+        <h2>{getGreetings()}!</h2>
+        <h6>Have a Good Day !</h6>
       </div>
-      <div className="col-5">{/* <img src={img} height={300}/> */}</div>
+      <div className="col-md-5">
+        <img src={img} className="dashboard-img" alt="dashboard"/>
+      </div>
     </div>
   );
 };

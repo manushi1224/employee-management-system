@@ -93,7 +93,7 @@ function App() {
             <Route path="/leave-page" element={<AllLeaves />}></Route>
             <Route path="/ask-for-leave/:uid" element={<LeavePage />}></Route>
             <Route path="/edit/:uid" element={<EditEmployee />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:uid" element={<Profile />} />
           </Routes>
         </Router>
       </userContext.Provider>

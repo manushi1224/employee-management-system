@@ -23,6 +23,7 @@ const userOnLeave = (employee) => {
     if (leaveData.isOnLeave) {
       return {
         name: emp.name,
+        image: emp.image,
         startDate: leaveData.startDate.toISOString().split("T")[0],
         endDate: leaveData.endDate.toISOString().split("T")[0],
       };

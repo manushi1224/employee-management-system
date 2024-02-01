@@ -1,4 +1,12 @@
-/* body {
+:root {
+  --main-header: #ff4c52;
+  --secondary-font: #767676;
+  --sub-title: #00A699;
+  --bs-table-bg: var(--main-header) !important;
+  --the-shadow: rgba(17, 17, 26, 0.1) 0px 0px 20px, rgba(17, 17, 26, 0.05) 0px 10px 32px;
+}
+
+body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -7,11 +15,99 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  height: 12rem;
+  overflow-x: auto;
+}
+
+body::-webkit-scrollbar {
+  padding-left: 0.1rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 1rem !important;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom right, #000000 0%, rgb(0, 0, 0) 100%);
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #ddddddbe;
+  border: 1px solid #ccc;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-} */
+}
 
 body {
-  overflow:visible;
+  overflow: visible;
+}
+
+.profile-detail-heading {
+  color: var(--main-header);
+  font-weight: 800 !important;
+}
+
+.custom-button {
+  border: 1px solid #02cab9 !important;
+  color: var(--sub-title) !important;
+  font-weight: 600 !important;
+  border-radius: 1.2rem !important;
+  background-color: aliceblue !important;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  transform: scale(1);
+  transition: transform 1s ease-in-out;
+}
+
+.custom-button:hover {
+  transform: scale(1.01);
+  color: #fff !important;
+  background-color: var(--sub-title) !important;
+}
+
+.table {
+  --bs-table-bg: none !important;
+  --bs-table-color: none !important;
+  box-shadow: var(--the-shadow);
+  border-radius: 1.2rem !important;
+  background-color: rgb(250, 253, 255);
+}
+
+.table-head {
+  background-color: var(--main-header) !important;
+  color: #fff !important;
+  font-size: 1.2rem;
+}
+
+td {
+  font-weight: 600;
+}
+
+.btn:disabled:hover {
+  cursor: none !important;
+}
+
+form {
+  box-shadow: var(--the-shadow);
+  border-radius: 1rem;
+  width: 45%;
+}
+
+label {
+  color: var(--main-header);
+  font-size: 1.1em;
+  margin-left: 0.3rem !important;
+}
+
+.form-control {
+  color: var(--secondary-font) !important;
+  border-radius: 1.1rem !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  border: 1px solid var(--main-header) !important;
 }

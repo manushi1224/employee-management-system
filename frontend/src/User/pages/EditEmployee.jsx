@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Spin, Upload, message } from "antd";
@@ -6,8 +6,10 @@ import { MdOutlineSaveAlt } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 
 import axios from "axios";
+import userContext from "../../context/userContext";
 
 const EditEmployee = (data) => {
+  const auth = useContext(userContext);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
   const navigate = useNavigate();
@@ -59,11 +61,15 @@ const EditEmployee = (data) => {
     }
 
     try {
-      await axios.patch(`/api/users/editEmployee/${user._id}`, formData);
+      await axios.patch(`/api/users/editEmployee/${user._id}`, formData, {
+        headers: {
+          Authorization: "Bearer " + auth.token,
+        },
+      });
       setLoading(true);
       message.success("Profile Updated successfully");
       data.changeMode();
-      navigate("/profile");
+      navigate(`/profile/${data.user._id}`);
     } catch (error) {
       message.error("Could not update data..Please try again!");
     }
@@ -99,7 +105,7 @@ const EditEmployee = (data) => {
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          className="border shadow p-5 rounded"
+          className="p-5"
         >
           <Form.Item
             label="Username"

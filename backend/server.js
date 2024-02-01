@@ -4,6 +4,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
+const superUserRoutes = require("./routes/super-user-routes");
+const connectDb = require("./database/db");
+const userRoutes = require("./routes/user-routes");
+const leaveRoutes = require("./routes/leaveRoutes");
 dotenv.config()
 
 const port = process.env.PORT || 5000;
@@ -17,10 +21,6 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json({ extended: false }));
 
-const superUserRoutes = require("./routes/super-user-routes");
-const connectDb = require("./database/db");
-const userRoutes = require("./routes/user-routes");
-const leaveRoutes = require("./routes/leaveRoutes");
 app.use("/uploads", express.static("uploads"));
 
 connectDb();
