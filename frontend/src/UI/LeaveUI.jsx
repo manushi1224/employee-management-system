@@ -1,5 +1,5 @@
 import React from "react";
-import getLeaveData from "../utils/getLeaveData";
+import {getLeaveData} from "../utils/leaveFunctions";
 import userOnLeave from "../utils/isOnLeave";
 import { Avatar } from "antd";
 
@@ -22,7 +22,10 @@ const LeaveUI = ({ employee, superuser }) => {
         {employee.map((emp) => {
           if (getLeaveData(emp.leaveDate) > 0) {
             return (
-              <div key={emp._id} className="d-flex justify-content-between mt-2">
+              <div
+                key={emp._id}
+                className="d-flex justify-content-between mt-2"
+              >
                 <div className="d-flex gap-4">
                   <Avatar src={emp.image} size={30} />
                   <span className="leave-text">{emp.name}</span>

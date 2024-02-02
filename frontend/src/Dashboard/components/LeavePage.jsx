@@ -4,6 +4,7 @@ import axios from "axios";
 import { DatePicker, Form, message } from "antd";
 import { Button } from "react-bootstrap";
 import userContext from "../../context/userContext";
+import {calculateTotalDaysSelected} from "../../utils/leaveFunctions";
 import { Link, useNavigate } from "react-router-dom";
 const { RangePicker } = DatePicker;
 
@@ -18,30 +19,12 @@ const LeavePage = () => {
   const [rangePicker, setRangePicker] = useState([{}]);
 
   useEffect(() => {
-    const calculateTotalDaysSelected = (start, end) => {
-      const startDate = start;
-      const endDate = end;
-
-      if (startDate && endDate) {
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-
-        const differenceInMilliseconds = Math.abs(
-          end.getTime() - start.getTime()
-        );
-        const totalDaysSelected = Math.ceil(
-          differenceInMilliseconds / (1000 * 60 * 60 * 24)
-        );
-
-        setTotalDays(totalDaysSelected);
-      } else {
-        setTotalDays(0);
-      }
-    };
     if (rangePicker.rangepicker) {
-      calculateTotalDaysSelected(
-        rangePicker.rangepicker[0],
-        rangePicker.rangepicker[1]
+      setTotalDays(
+        calculateTotalDaysSelected(
+          rangePicker.rangepicker[0],
+          rangePicker.rangepicker[1]
+        )
       );
     }
   }, [rangePicker]);

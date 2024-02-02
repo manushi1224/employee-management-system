@@ -10,9 +10,9 @@ import EditEmployee from "../../User/pages/EditEmployee";
 
 import { Spin } from "antd";
 import { Button } from "react-bootstrap";
-import { FaRegEdit } from "react-icons/fa";
 
 import "./Profile.css";
+import getIcon from "../../utils/getIcon";
 
 const Profile = () => {
   const auth = useContext(userContext);
@@ -48,7 +48,7 @@ const Profile = () => {
                 variant=""
                 disabled={!auth.isSuperUser && auth.userId !== selectedUser._id}
               >
-                <FaRegEdit className="mb-1 me-2" /> Edit Info
+                {getIcon("edit")} Edit Info
               </Button>
             </div>
             <div className="container mt-3">
