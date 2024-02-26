@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import userContext from "../../context/userContext";
-import ApproveLeave from "../components/ApproveLeave";
+// import ApproveLeave from "../components/ApproveLeave";
 import { Spin } from "antd";
 import { AiFillFilter } from "react-icons/ai";
 import { Button, Dropdown } from "react-bootstrap";
@@ -61,9 +61,9 @@ const AllLeaves = () => {
     }
   };
 
-  if (auth.isSuperUser) {
-    return <ApproveLeave />;
-  }
+  // if (auth.isSuperUser) {
+  //   return <ApproveLeave />;
+  // }
 
   if (!auth.currentUser) {
     return <Spin fullscreen />;
