@@ -52,7 +52,7 @@ const LoginUser = () => {
       console.log(response.data.message);
       message.success("Login Successfull!!");
       authUser.login(response.data.token, _id, isSuperUser);
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       console.log(error);
       message.warning("Invalid Email or Password");

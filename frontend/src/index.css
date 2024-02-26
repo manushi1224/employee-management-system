@@ -111,3 +111,8 @@ label {
   box-shadow: none !important;
   border: 1px solid var(--main-header) !important;
 }
+
+.error-image{
+  height: auto;
+  width: 40rem;
+}

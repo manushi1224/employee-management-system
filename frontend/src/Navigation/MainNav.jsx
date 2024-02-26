@@ -28,7 +28,7 @@ function MainNav() {
 
   useEffect(() => {
     if (!authUser.isLoggedIn) {
-      navigate("/");
+      navigate("/login");
     }
   }, [authUser, navigate]);
 
@@ -43,7 +43,7 @@ function MainNav() {
         <Container>
           <Navbar.Brand>
             <Link
-              to={`${authUser.isLoggedIn ? "/dashboard" : "/"}`}
+              to={`${authUser.isLoggedIn ? "/" : "/login"}`}
               className="text-decoration-none fw-bold text-white"
             >
               Employee Management System
@@ -65,7 +65,7 @@ function MainNav() {
                     navText="Profile"
                   />
                   <NavLinks
-                    link="/dashboard"
+                    link="/"
                     navIcon="dashboard"
                     navText="Dashboard"
                   />

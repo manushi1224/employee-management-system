@@ -15,7 +15,7 @@ const LeaveUI = ({ employee, superuser }) => {
       <div className="container leave-section">
         <div className="d-flex justify-content-between sticky-head">
           <h3>Pending Approval</h3>
-          <Link to={"/leave-page"} className="text-decoration-none mt-1">
+          <Link to={"/approve-leave"} className="text-decoration-none mt-1">
             <span className="leave-req">Leave Requests &gt;</span>
           </Link>
         </div>

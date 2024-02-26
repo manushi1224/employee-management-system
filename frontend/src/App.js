@@ -6,12 +6,14 @@ import EditEmployee from "./User/pages/EditEmployee";
 import { useCallback, useState } from "react";
 import userContext from "./context/userContext";
 import LeavePage from "./Dashboard/components/LeavePage";
+import ApproveLeave from "./Dashboard/components/ApproveLeave";
 import AllLeaves from "./Dashboard/pages/AllLeaves";
 import axios from "axios";
 import Profile from "./UserProfile/pages/Profile";
 import { ConfigProvider } from "antd";
 import NewUser from "./User/pages/NewUser";
 import LoginUser from "./User/pages/LoginUser";
+import NotFound from "./NotFound";
 
 function App() {
   const getLocalItem = () => {
@@ -87,13 +89,15 @@ function App() {
         <Router>
           <MainNav />
           <Routes>
-            <Route path="/" element={<LoginUser />}></Route>
-            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/" element={<Dashboard />}></Route>
+            <Route path="/login" element={<LoginUser />}></Route>
             <Route path="/signup" element={<NewUser />}></Route>
             <Route path="/leave-page" element={<AllLeaves />}></Route>
             <Route path="/ask-for-leave/:uid" element={<LeavePage />}></Route>
             <Route path="/edit/:uid" element={<EditEmployee />} />
             <Route path="/profile/:uid" element={<Profile />} />
+            <Route path="/approve-leave" element={<ApproveLeave /> }/>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>
       </userContext.Provider>
