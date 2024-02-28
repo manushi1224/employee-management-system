@@ -1,13 +1,29 @@
-const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 const userModel = require("../models/user");
 const jwt = require("jsonwebtoken");
+const {
+  encryptData,
+  decryptData,
+  decryptePass,
+} = require("./hashingController");
+
+const secretKey =
+  "6e97deb2f832bbaa0ceadcbd8f94abb053da76fe4f695392bf0012c646921ca3";
 
 const getUserById = async (req, res, next) => {
   const uid = req.params.uid;
   let user;
   try {
     user = await userModel.findById(uid);
+    const { decPass, decAadhar, decPan } = decryptData(
+      user.password,
+      user.aadhar,
+      user.panNo,
+      secretKey
+    );
+    user.password = decPass;
+    user.aadhar = decAadhar;
+    user.panNo = decPan;
   } catch (error) {}
   return res
     .status(200)
@@ -28,7 +44,11 @@ const newUser = async (req, res, next) => {
     aadhar,
     panNo,
     isSuperUser,
-    leaveDays,
+    address,
+    dateOfBirth,
+    githubId,
+    linkedIn,
+    phone,
   } = req.body;
 
   let existingUser;
@@ -43,24 +63,30 @@ const newUser = async (req, res, next) => {
       .json({ message: "User already exists with this email", success: false });
   }
 
-  const hashPassword = await bcrypt.hash(password, 12);
-  const hashAadhar = await bcrypt.hash(aadhar, 12);
-  const hashPanNo = await bcrypt.hash(panNo, 12);
+  const { encPass, encAadhar, encPan } = encryptData(
+    password,
+    aadhar,
+    panNo,
+    secretKey
+  );
 
   try {
     const newUser = new userModel({
       email,
-      password: hashPassword,
-      joiningDate: new Date(joiningDate),
+      password: encPass,
+      joiningDate,
       position,
       name,
-      aadhar: hashAadhar,
-      panNo: hashPanNo,
+      aadhar: encAadhar,
+      panNo: encPan,
       isSuperUser,
-      leaveDays,
+      address,
+      dateOfBirth,
+      githubId,
+      linkedInId: linkedIn,
+      phone,
     });
 
-    // console.log(newUser);
     newUser.image = "uploads\\images\\user-default.jpg";
 
     await newUser.save();
@@ -93,8 +119,8 @@ const loginUser = async (req, res, next) => {
       .send({ message: "User not found with this email.", success: false });
   }
 
-  const decryptPass = await bcrypt.compare(password, existingUser.password);
-  if (!decryptPass) {
+  const { decPass } = decryptePass(existingUser.password, secretKey);
+  if (decPass !== password) {
     return res
       .status(404)
       .send({ message: "Invalid Password", success: false });
@@ -137,7 +163,7 @@ const displayUser = async (req, res, next) => {
 };
 
 const editEmployee = async (req, res, next) => {
-  const { email, name, position } = req.body;
+  const { email, name, position, phone, address, aadhar, panNo } = req.body;
 
   const uid = req.params.uid;
   let user;
@@ -154,7 +180,11 @@ const editEmployee = async (req, res, next) => {
   user.name = name;
   user.email = email;
   user.position = position;
-  user.image = req?.file?.path || "";
+  user.phone = phone;
+  user.address = address;
+  user.aadhar = aadhar;
+  user.panNo = panNo;
+  user.image = req?.file?.path || "uploads\\images\\user-default.jpg";
 
   try {
     await user.save();

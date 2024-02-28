@@ -1,0 +1,30 @@
+.welcome-section {
+    height: 12rem;
+}
+
+.welcome-section h2 {
+    color: var(--main-header);
+    font-weight: 700;
+}
+
+.welcome-section h6 {
+    font-style: italic;
+    color: var(--secondary-font);
+}
+
+.dashboard-img{
+    margin-top: -4.5rem;
+    margin-left: 2rem;
+    height: auto;
+    width: 20rem;
+}
+
+@media screen and (max-width: 576px) {
+    .dashboard-img{
+        margin-top: 0rem;
+        width: 12rem;
+    }
+    .welcome-section {
+        height: 15rem;
+    }
+}

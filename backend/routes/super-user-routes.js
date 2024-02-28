@@ -1,7 +1,19 @@
 const express = require("express");
 const { check } = require("express-validator");
 const { newUser, loginUser } = require("../controllers/userController");
+const checkAuth = require("../middleware/check-auth");
 const superUserRoutes = express.Router();
+
+superUserRoutes.post(
+  "/login",
+  [
+    check("email").normalizeEmail().isEmail(),
+    check("password").isLength({ min: 6 }),
+  ],
+  loginUser
+);
+
+superUserRoutes.use(checkAuth);
 
 superUserRoutes.post(
   "/signup",
@@ -14,15 +26,6 @@ superUserRoutes.post(
     check("panNo").notEmpty(),
   ],
   newUser
-);
-
-superUserRoutes.post(
-  "/login",
-  [
-    check("email").normalizeEmail().isEmail(),
-    check("password").isLength({ min: 6 }),
-  ],
-  loginUser
 );
 
 module.exports = superUserRoutes;

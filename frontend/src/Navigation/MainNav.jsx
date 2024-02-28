@@ -1,11 +1,26 @@
-import Container from "react-bootstrap/Container";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import userContext from "../context/userContext";
+
+import { NavDropdown } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+
 import MainHeader from "./MainHeader";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import userContext from "../context/userContext";
-import { useContext, useEffect } from "react";
+import getIcon from "../utils/getIcon";
+
+const NavLinks = (item) => {
+  return (
+    <Nav.Link
+      className="text-decoration-none text-white mt-1 ms-2 me-2"
+      href={item.link}
+    >
+      {getIcon(item.navIcon)}
+      {item.navText}
+    </Nav.Link>
+  );
+};
 
 function MainNav() {
   const authUser = useContext(userContext);
@@ -13,18 +28,23 @@ function MainNav() {
 
   useEffect(() => {
     if (!authUser.isLoggedIn) {
-      navigate("/");
+      navigate("/login");
     }
   }, [authUser, navigate]);
 
+  useEffect(() => {
+    authUser.getUserData();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <MainHeader>
-      <Navbar expand="lg" className="bg-dark shadow-lg">
+      <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="shadow-lg">
         <Container>
-          <Navbar.Brand className="text-white">
+          <Navbar.Brand>
             <Link
-              to={`${authUser.isLoggedIn ? "/dashboard" : "/"}`}
-              className="text-decoration-none text-white"
+              to={`${authUser.isLoggedIn ? "/" : "/login"}`}
+              className="text-decoration-none fw-bold text-white"
             >
               Employee Management System
             </Link>
@@ -34,46 +54,37 @@ function MainNav() {
             <Nav className="me-auto">
               {authUser.isLoggedIn && (
                 <>
-                  <Link
-                    className="text-white text-decoration-none mt-2 ms-1"
-                    to={"/leave-page"}
-                  >
-                    Leave Page
-                  </Link>
-                  <Link to={`/profile`} className="text-white text-decoration-none mt-2 ms-1">Profile Page</Link>
-                  <Link
-                    to={"/dashboard"}
-                    className="text-white text-decoration-none mt-2 ms-1"
-                  >
-                    DashBoard
-                  </Link>
+                  <NavLinks
+                    link="/leave-page"
+                    navIcon="leave"
+                    navText="Leave Stats"
+                  />
+                  <NavLinks
+                    link={`/profile/${authUser.userId}`}
+                    navIcon="profile"
+                    navText="Profile"
+                  />
+                  <NavLinks
+                    link="/"
+                    navIcon="dashboard"
+                    navText="Dashboard"
+                  />
                 </>
               )}
             </Nav>
+            {authUser.token && authUser.currentUser && (
+              <NavDropdown
+                title={authUser.currentUser.name}
+                className="text-white"
+                id="collapsible-nav-dropdown"
+              >
+                <NavDropdown.Item onClick={authUser.logout}>
+                  Log Out
+                </NavDropdown.Item>
+              </NavDropdown>
+            )}
           </Navbar.Collapse>
         </Container>
-        {authUser.isSuperUser ? (
-          <div className="w-100 d-flex justify-content-end">
-            <Link to={"/signup"} className="text-white text-decoration-none">
-              <Button className="bg-dark border-white me-3">
-                Add New User
-              </Button>
-            </Link>
-            <Button
-              className="bg-dark border-white me-3"
-              onClick={authUser.logout}
-            >
-              Log Out
-            </Button>
-          </div>
-        ) : authUser.isLoggedIn && !authUser.isSuperUser ? (
-          <Button
-            className="bg-dark border-white me-3"
-            onClick={authUser.logout}
-          >
-            Log Out
-          </Button>
-        ) : null}
       </Navbar>
     </MainHeader>
   );
