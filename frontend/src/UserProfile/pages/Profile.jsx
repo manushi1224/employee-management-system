@@ -27,7 +27,7 @@ const Profile = () => {
   useEffect(() => {
     const getSelectedUserData = async () => {
       try {
-        const response = await axios.get(`/api/users/${uid}`);
+        const response = await axios.get(`https://employee-management-system-ujnj.onrender.com/api/users/${uid}`);
         setSelectedUser(response.data.user);
       } catch (error) {
         console.log(error);
